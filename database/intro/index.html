@@ -9,19 +9,19 @@
       
       
       
-      <link rel="icon" href="assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.5">
     
     
       
-        <title>FastAPI Example Project</title>
+        <title>Database - Intro - FastAPI Example Project</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.bde7dde4.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.bde7dde4.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.ef6f36e2.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ef6f36e2.min.css">
         
       
     
@@ -51,7 +51,7 @@
     <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
   
     
-    <script>function __prefix(e){return new URL(".",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -59,7 +59,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#intro" class="md-skip">
+        <a href="#database-intro" class="md-skip">
           Skip to content
         </a>
       
@@ -70,7 +70,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="FastAPI Example Project" class="md-header__button md-logo" aria-label="FastAPI Example Project" data-md-component="logo">
+    <a href="../.." title="FastAPI Example Project" class="md-header__button md-logo" aria-label="FastAPI Example Project" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
@@ -89,7 +89,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Intro
+              Database - Intro
             
           </span>
         </div>
@@ -150,7 +150,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="FastAPI Example Project" class="md-nav__button md-logo" aria-label="FastAPI Example Project" data-md-component="logo">
+    <a href="../.." title="FastAPI Example Project" class="md-nav__button md-logo" aria-label="FastAPI Example Project" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
@@ -167,65 +167,11 @@
 
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Intro
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="." class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
         Intro
       </a>
-      
-        
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
-    Introduction
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#features" class="md-nav__link">
-    Features
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#project-layout" class="md-nav__link">
-    Project layout
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -236,12 +182,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
       
       <label class="md-nav__link" for="__nav_2">
         Database
@@ -257,11 +205,21 @@
             
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="database/intro/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Database - Intro
       </a>
+      
     </li>
   
 
@@ -271,7 +229,7 @@
   
   
     <li class="md-nav__item">
-      <a href="database/migrations/" class="md-nav__link">
+      <a href="../migrations/" class="md-nav__link">
         Migrations
       </a>
     </li>
@@ -283,7 +241,7 @@
   
   
     <li class="md-nav__item">
-      <a href="database/connections/" class="md-nav__link">
+      <a href="../connections/" class="md-nav__link">
         Connections and AsyncIO
       </a>
     </li>
@@ -295,7 +253,7 @@
   
   
     <li class="md-nav__item">
-      <a href="database/dml/" class="md-nav__link">
+      <a href="../dml/" class="md-nav__link">
         DML
       </a>
     </li>
@@ -337,7 +295,7 @@
   
   
     <li class="md-nav__item">
-      <a href="auth/intro/" class="md-nav__link">
+      <a href="../../auth/intro/" class="md-nav__link">
         Auth - Intro
       </a>
     </li>
@@ -369,35 +327,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
-    Introduction
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#features" class="md-nav__link">
-    Features
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#project-layout" class="md-nav__link">
-    Project layout
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -409,34 +338,8 @@
               
                 
                 
-                <h1 id="intro">Intro</h1>
-<h2 id="introduction">Introduction</h2>
-<p>This project can be used as a template/guide to for creating a REST API using the FastAPI framework.</p>
-<p>Checkout the project code: <a href="https://github.com/jdglaser/fastapi-example-project">https://github.com/jdglaser/fastapi-example-project</a></p>
-<h2 id="features">Features</h2>
-<ul>
-<li>PostgresSQL for database</li>
-<li>Asynchronous database connections with <a href="https://pypi.org/project/databases/">Databases</a></li>
-<li>Database migrations with <a href="https://pypi.org/project/alembic/">Alembic</a></li>
-<li><a href="https://docs.sqlalchemy.org/en/14/core/future.html">SQLAlchemy Core 2.0</a> for database interaction</li>
-<li>JWT Auth with refresh tokens, implemented using FastAPIs built-in security features</li>
-<li>Pipenv for project dependency management</li>
-</ul>
-<h2 id="project-layout">Project layout</h2>
-<pre><code>app/                # All application code
-    alembic/        # Alembic configuration and versions
-    database/       # Database related code
-        repos/      # Database repository definitions
-        tables/     # SQLAlchemy core table definitions
-        database.py # Contains database object and SQLAlchemy metadata object
-    models/         # Pydantic model definitions
-    routes/         # Individual FastAPI routes
-    util/           # Utility functions and classes
-scripts/            # Helpful shell scripts
-tests/              # Application tests
-docker-compose.yml  # Defines database and app services for local development
-Dockerfile          # Dockerfile to build app
-</code></pre>
+                <h1 id="database-intro">Database Intro</h1>
+<p>TODO: database stuff</p>
                 
               
               
@@ -455,14 +358,28 @@ Dockerfile          # Dockerfile to build app
   
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
+        <a href="../.." class="md-footer__link md-footer__link--prev" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Intro
+            </div>
+          </div>
+        </a>
       
-        <a href="database/intro/" class="md-footer__link md-footer__link--next" rel="next">
+      
+        <a href="../migrations/" class="md-footer__link md-footer__link--next" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Database - Intro
+              Migrations
             </div>
           </div>
           <div class="md-footer__button md-icon">
@@ -491,10 +408,10 @@ Dockerfile          # Dockerfile to build app
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": ".", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "assets/javascripts/workers/search.d351de03.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../assets/javascripts/workers/search.d351de03.min.js", "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.a1609d9a.min.js"></script>
+      <script src="../../assets/javascripts/bundle.a1609d9a.min.js"></script>
       
     
   </body>
