@@ -1,0 +1,29 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+fastapi = "*"
+uvicorn = "*"
+pydantic = "*"
+sqlalchemy = "*"
+databases = {extras = ["postgresql"], version = "*"}
+asyncpg = "*"
+python-dotenv = "*"
+alembic = "*"
+pyhumps = "*"
+passlib = "*"
+python-jose = "*"
+python-multipart = "*"
+bcrypt = "*"
+fastapi-jwt-auth = "*"
+
+[dev-packages]
+pytest = "*"
+pytest-asyncio = "*"
+psycopg2-binary = "*"
+pylint = "*"
+
+[requires]
+python_version = "3.9"
