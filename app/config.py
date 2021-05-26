@@ -5,7 +5,9 @@ from pydantic import BaseSettings
 
 class Settings(BaseSettings):
     project_name: str = "Example FastAPI Project"
-    log_level:int = logging.DEBUG
+    project_version: str = "1.0"
+    log_level: int = logging.DEBUG
+    allowed_origins: list[str] = ["http://localhost:3000"]
     db_host: str = "localhost"
     db_port: int = 5432
     db_username: str = "postgres"

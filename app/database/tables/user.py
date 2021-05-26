@@ -1,11 +1,11 @@
-from app.database.database import metadata
+from app.database.database import METADATA
 from app.database.tables.common_columns import get_common_columns
 from sqlalchemy import Boolean, Column, Date, DateTime, Integer, String, Table
 from sqlalchemy.sql import text
 
 user_table = Table(
     "user",
-    metadata,
+    METADATA,
     Column("id", Integer, primary_key=True),
     Column("username", String, nullable=False, unique=True),
     Column("email", String, nullable=False, unique=True),

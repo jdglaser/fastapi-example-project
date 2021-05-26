@@ -24,6 +24,7 @@ pytest = "*"
 pytest-asyncio = "*"
 psycopg2-binary = "*"
 pylint = "*"
+mypy = "*"
 
 [requires]
 python_version = "3.9"

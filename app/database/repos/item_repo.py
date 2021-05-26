@@ -1,48 +1,55 @@
-from app.database.database import db
 from app.database.tables.item import item_table
 from app.models.item import Item, ItemTemplate, ItemUpdate
 from app.util.logging import get_logger
 from asyncpg.exceptions import UniqueViolationError
 from fastapi import HTTPException
+from app.database.repos.base_repo import BaseRepo
+from fastapi import status
 
 logger = get_logger(__name__)
 
-async def get_items() -> list[Item]:
-    logger.info("Getting items")
-    async with db.transaction():
-        stmt = item_table.select()
-        res = await db.fetch_all(query=stmt)
-        return [Item(**dict(r)) for r in res]
+class ItemRepo(BaseRepo):
+    async def get_items(self) -> list[Item]:
+        logger.info("Getting items")
+        async with self.db.transaction():
+            stmt = item_table.select()
+            res = await self.db.fetch_all(query=stmt)
+            return [Item(**r) for r in res]
 
-async def create_item(item: ItemTemplate) -> Item:
-    async with db.transaction():
-        stmt = (
-            item_table.insert()
-                .returning(item_table)
-        )
-        try:
-            res = await db.fetch_all(query=stmt, values=dict(item))
-        except UniqueViolationError as e:
-            raise HTTPException(
-                status_code=400,
-                detail=f"Item with name {item.name} already exists."
+    async def create_item(self, item: ItemTemplate) -> Item:
+        async with self.db.transaction():
+            stmt = (
+                item_table.insert()
+                    .returning(item_table)
             )
-        return Item(**[dict(r) for r in res][0])
+            try:
+                res = await self.db.fetch_one(query=stmt, values=dict(item))
+            except UniqueViolationError as e:
+                raise HTTPException(
+                    status_code=status.HTTP_409_CONFLICT,
+                    detail=f"Item with name {item.name} already exists."
+                )
+            if not res:
+                raise HTTPException(
+                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                    detail=f"Failed to insert item {item.name}"
+                )
+            return Item(**res)
 
-async def update_item(name: str, item: ItemUpdate) -> Item:
-    async with db.transaction():
-        stmt = (
-            item_table.update()
-                .where(item_table.c.name == name)
-                .values(dict(item))
-                .returning(item_table)
-        )
-        res = await db.fetch_all(query=stmt)
-        if (len(res) == 0):
-            raise HTTPException(
-                status_code=404,
-                detail=f"Item {name} does not exist"
+    async def update_item(self, name: str, item: ItemUpdate) -> Item:
+        async with self.db.transaction():
+            stmt = (
+                item_table.update()
+                    .where(item_table.c.name == name)
+                    .values(dict(item))
+                    .returning(item_table)
             )
-        return Item(**[dict(r) for r in res][0])
+            res = await self.db.fetch_one(query=stmt)
+            if not res:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail=f"Item {name} does not exist"
+                )
+            return Item(**res)
 
 

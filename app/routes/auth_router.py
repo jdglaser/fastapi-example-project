@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from typing import Optional
 
 from app.config import settings
-from app.database.repos import user_repo
+from app.database.repos.user_repo import UserRepo
 from app.models.token import Token
 from app.models.user import AuthUserTemplate, User, UserTemplate
 from app.util.auth import jwt_auth, retrieve_current_user, verify_current_user
@@ -11,6 +11,8 @@ from app.util.logging import get_logger
 from fastapi import (APIRouter, Depends, HTTPException, Request,
                      Response, status)
 from fastapi.security import HTTPBearer
+from app.database.database import get_repository
+from app.models.token import Token
 
 token_bearer_scheme = HTTPBearer()
 
@@ -24,7 +26,10 @@ LOG = get_logger(__name__)
 
 
 @router.post("/login", response_model=Token)
-async def login(response: Response, username: str, password: str):
+async def login(response: Response, 
+                username: str, 
+                password: str,
+                user_repo: UserRepo = Depends(get_repository(UserRepo))) -> Token:
     user = await user_repo.get_auth_user(username)
     jwt_auth.verify_password(password, user.hashed_password)
 
@@ -46,10 +51,12 @@ async def login(response: Response, username: str, password: str):
                         samesite="strict",
                         secure=True,
                         path="/auth/refresh")
-    return {"access_token": access_token, "token_type": "bearer"}
+    return Token(access_token=access_token, token_type="bearer")
 
 @router.post("/refresh", response_model=Token)
-async def refresh_access_token(request: Request, username: str = Depends(retrieve_current_user)):
+async def refresh_access_token(request: Request, 
+                               username: str = Depends(retrieve_current_user),
+                               user_repo: UserRepo = Depends(get_repository(UserRepo))) -> Token:
     invalid_refresh_token_exception = HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Invalid refresh token",
@@ -74,10 +81,11 @@ async def refresh_access_token(request: Request, username: str = Depends(retriev
         expires_minutes=settings.access_token_expire_minutes
     )
 
-    return {"access_token": access_token, "token_type": "bearer"}
+    return Token(access_token=access_token, token_type="bearer")
 
 @router.post("/")
-async def create_new_user(user: UserTemplate) -> User:
+async def create_new_user(user: UserTemplate,
+                          user_repo: UserRepo = Depends(get_repository(UserRepo))) -> User:
     hashed_password = await jwt_auth.get_password_hash(user.password)
     auth_user: AuthUserTemplate = AuthUserTemplate(hashed_password=hashed_password,
                                                    **dict(user))

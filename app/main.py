@@ -1,49 +1,40 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
-from fastapi_jwt_auth.exceptions import AuthJWTException
 
 from app.config import settings
-from app.database.database import db
 from app.routes import auth_router, item_router
+from app.routes import router as api_router
 from app.util.logging import get_logger
-
-app = FastAPI()
+from app.database.database import connect_to_db, close_db_connection
 
 logger = get_logger(__name__)
 
-app.include_router(item_router.router)
-app.include_router(auth_router.router)
-
-origins = [
-    "http://localhost:3000",
-]
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-app.exception_handler(AuthJWTException)
-def authjwt_exception_handler(request: Request, exc: AuthJWTException):
-    return JSONResponse(
-        status_code=exc.status_code,
-        content={"detail": exc.message}
+def get_application():
+    app = FastAPI(title=settings.project_name, 
+                  version=settings.project_version)  
+    
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=settings.allowed_origins,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
     )
 
-@app.on_event("startup")
-async def startup():
-    await db.connect()
+    app.include_router(api_router)
+    
+    @app.on_event("startup")
+    async def startup():
+        await connect_to_db(app)
+    
+    @app.on_event("shutdown")
+    async def shutdown():
+        await close_db_connection(app)
+    
+    return app
 
-
-@app.on_event("shutdown")
-async def shutdown():
-    await db.disconnect()
+app = get_application()
 
 @app.get("/")
 async def read_root():
-    logger.info("HELLO!")
     return {"message": f"Welcome to the {settings.project_name} REST API."}
