@@ -19,8 +19,13 @@ import secrets
 
 from app.services.token import TokenService
 
+from app.util.logging import get_logger
+
+logger = get_logger(__name__)
+
 class AuthService(BaseService):
     pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+    auth_scheme = HTTPBearer()
 
     invalid_token_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
@@ -67,6 +72,37 @@ class AuthService(BaseService):
             return payload
         except JWTError:
             raise cls.invalid_token_exception
+    
+    @classmethod
+    def verify_token(cls, token) -> Mapping:
+        try:
+            payload = jwt.decode(
+                token, 
+                settings.secret_key, 
+                algorithms=settings.hashing_algorithm,
+                options={
+                    "require_sub": True,
+                    "verify_exp": True
+                }
+            )
+            return payload
+        except ExpiredSignatureError:
+            raise cls.token_expired_exception
+        except JWTError:
+            raise cls.invalid_token_exception
+    
+    @classmethod
+    def verify_current_user(
+        cls,
+        token: Optional[HTTPAuthorizationCredentials] = Depends(auth_scheme)
+    ) -> str:
+        if not token:
+            raise cls.invalid_token_exception
+        payload = cls.verify_token(token.credentials)
+        username: Optional[str] = payload.get("sub")
+        if not username:
+            raise AuthService.invalid_token_exception
+        return username
     
     async def verify_password(self, plain_password, hashed_password):
         return self.pwd_context.verify(plain_password, hashed_password)

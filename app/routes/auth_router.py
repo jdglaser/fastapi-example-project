@@ -40,7 +40,7 @@ class AuthRouter:
     @router.post("/refresh", response_model=Token)
     async def refresh_access_token(
         self,
-        request: Request
+        request: Request,
     ) -> Token:
         return await self.auth_service.refresh_access_token(request)
 

@@ -16,9 +16,8 @@ router = APIRouter(
 
 @cbv(router)
 class ItemRouter():
-    auth_service = Depends(AuthService)
-    item_service = Depends(ItemsService)
-    user_service: UserService = Depends(UserService)
+    username: str = Depends(AuthService.verify_current_user)
+    item_service: ItemsService = Depends()
 
     @router.get("/", response_model=list[Item])
     async def get_items(self) -> list[Item]:

@@ -34,6 +34,11 @@ def get_application():
     return app
 
 app = get_application()
+# Add custom security openapi spec
+#open_api_schema = app.openapi_schema
+#print(open_api_schema)
+#open_api_schema = ["paths"]["/auth/refresh"]
+#["post"]["security"] = {"HTTPBearer": []}
 
 @app.get("/")
 async def read_root():
