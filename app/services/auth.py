@@ -55,13 +55,12 @@ class AuthService(BaseService):
     @classmethod
     def parse_expired_token_from_header(
         cls,
-        request: Request
+        request: Request,
+        token: Optional[HTTPAuthorizationCredentials] = Depends(auth_scheme)
     ) -> Mapping:
-        authorization: str = request.headers.get("Authorization")
-        _, credentials = get_authorization_scheme_param(authorization)
         try:
             payload = jwt.decode(
-                credentials, 
+                token.credentials, 
                 settings.secret_key, 
                 algorithms=settings.hashing_algorithm,
                 options={
@@ -142,7 +141,8 @@ class AuthService(BaseService):
     
     async def refresh_access_token(
         self,
-        request: Request
+        request: Request,
+        token: Mapping
     ) -> Token:
         invalid_refresh_token_exception = HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
@@ -151,7 +151,6 @@ class AuthService(BaseService):
         if not refresh_token:
             raise invalid_refresh_token_exception
 
-        token = self.parse_expired_token_from_header(request)
         username = token.get("sub")
         print(token)
 

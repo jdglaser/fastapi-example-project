@@ -1,6 +1,6 @@
 import secrets
 from datetime import datetime, timedelta
-from typing import Optional
+from typing import Mapping, Optional
 
 from app.config import settings
 from app.database.repos.user_repo import UserRepo
@@ -26,6 +26,7 @@ router = APIRouter(
 @cbv(router)
 class AuthRouter:
     auth_service: AuthService = Depends(AuthService)
+    parse_expired_token_from_header = AuthService.parse_expired_token_from_header
         
     @router.post("/login", response_model=Token)
     async def login(
@@ -41,8 +42,9 @@ class AuthRouter:
     async def refresh_access_token(
         self,
         request: Request,
+        token: Mapping = Depends(parse_expired_token_from_header)
     ) -> Token:
-        return await self.auth_service.refresh_access_token(request)
+        return await self.auth_service.refresh_access_token(request, token)
 
         '''
         @self.router.post("/")
