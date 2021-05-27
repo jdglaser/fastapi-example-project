@@ -17,7 +17,7 @@ class Settings(BaseSettings):
     db_max_connection_pool_size: int = 20
     hashing_algorithm: str = "HS256"
     secret_key: str = "super_secret_key"
-    access_token_expire_minutes: int = 5
+    access_token_expire_minutes: int = 1
     refresh_token_expire_minutes: int = 30
 
 settings = Settings(_env_file=None)

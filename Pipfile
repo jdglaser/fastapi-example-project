@@ -18,6 +18,7 @@ python-jose = "*"
 python-multipart = "*"
 bcrypt = "*"
 fastapi-jwt-auth = "*"
+fastapi-utils = "*"
 
 [dev-packages]
 pytest = "*"

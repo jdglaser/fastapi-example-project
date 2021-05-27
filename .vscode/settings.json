@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "/Users/jarred/.local/share/virtualenvs/fast-api-example-project-QeRIPyBJ/bin/python"
+    "python.pythonPath": "/Users/jarred/.local/share/virtualenvs/fast-api-example-project-QeRIPyBJ/bin/python",
+    "python.analysis.extraPaths": ["app"]
 }

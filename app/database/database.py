@@ -12,9 +12,9 @@ DATABASE_URL: str = f"postgresql://{settings.db_username}:{settings.db_password}
 METADATA = MetaData()
 
 def get_database(request: Request) -> Database:
-    return request.app.state._db
+    return request.app.state.db
 
-def get_repository(repo_type: Type[BaseRepo]) -> Callable:
+def get_repo(repo_type: Type[BaseRepo]) -> Callable:
     def get_repo(db: Database = Depends(get_database)) -> BaseRepo:
         return repo_type(db)
     return get_repo
@@ -26,7 +26,7 @@ async def connect_to_db(app: FastAPI) -> None:
                         max_size=settings.db_max_connection_pool_size)
     try:
         await database.connect()
-        app.state._db = database
+        app.state.db = database
         logger.info("Connected to database")
     except Exception as e:
         logger.warn("--- DB CONNECTION ERROR ---")
@@ -36,7 +36,7 @@ async def connect_to_db(app: FastAPI) -> None:
 async def close_db_connection(app: FastAPI) -> None:
     logger.info("Disconnecting from database")
     try:
-        await app.state._db.disconnect()
+        await app.state.db.disconnect()
         logger.info("Disconnected from database")
     except Exception as e:
         logger.warn("--- DB DISCONNECT ERROR ---")

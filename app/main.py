@@ -3,7 +3,6 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
 from app.routes import auth_router, item_router
-from app.routes import router as api_router
 from app.util.logging import get_logger
 from app.database.database import connect_to_db, close_db_connection
 
@@ -21,7 +20,8 @@ def get_application():
         allow_headers=["*"],
     )
 
-    app.include_router(api_router)
+    app.include_router(auth_router.router)
+    app.include_router(item_router.router)
     
     @app.on_event("startup")
     async def startup():
