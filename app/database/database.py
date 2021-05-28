@@ -11,14 +11,6 @@ logger = get_logger(__name__)
 DATABASE_URL: str = f"postgresql://{settings.db_username}:{settings.db_password}@{settings.db_host}:{settings.db_port}/{settings.db_name}"
 METADATA = MetaData()
 
-def get_database(request: Request) -> Database:
-    return request.app.state.db
-
-def get_repo(repo_type: Type[BaseRepo]) -> Callable:
-    def get_repo(db: Database = Depends(get_database)) -> BaseRepo:
-        return repo_type(db)
-    return get_repo
-
 async def connect_to_db(app: FastAPI) -> None:
     logger.info("Connecting to database")
     database = Database(DATABASE_URL, 

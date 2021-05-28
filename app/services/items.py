@@ -1,17 +1,15 @@
 from app.util.logging import get_logger
-from app.services.base_service import BaseService
 from app.database.repos.item_repo import ItemRepo
-from app.database.database import get_repo
 from fastapi import Depends
 from app.util.logging import get_logger
 from app.models.item import ItemTemplate, Item, ItemUpdate
 
 logger = get_logger(__name__)
 
-class ItemsService(BaseService):
+class ItemsService():
     def __init__(
         self,
-        item_repo: ItemRepo = Depends(get_repo(ItemRepo))
+        item_repo: ItemRepo = Depends()
     ) -> None:
         self.item_repo = item_repo
     

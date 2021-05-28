@@ -1,11 +1,8 @@
 from app.util.cbv import cbv
 from app.models.item import Item, ItemTemplate, ItemUpdate
 from fastapi import APIRouter, Depends
-from app.database.repos.item_repo import ItemRepo
-from app.database.database import get_repo
 from app.services.items import ItemsService
 from app.services.auth import AuthService
-from app.services.user import UserService
 
 router = APIRouter(
         prefix="/items",

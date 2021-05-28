@@ -10,7 +10,6 @@ from app.util.logging import get_logger
 from fastapi import (APIRouter, Depends, HTTPException, Request,
                      Response, responses, status)
 from fastapi.security import HTTPBearer
-from app.database.database import get_repo
 from app.models.token import Token
 from app.services.auth import AuthService
 from app.util.cbv import cbv

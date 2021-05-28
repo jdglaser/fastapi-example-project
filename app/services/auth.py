@@ -1,29 +1,22 @@
+import secrets
 from datetime import datetime, timedelta
-from typing import Callable, Mapping, Optional
+from typing import Mapping, Optional
 
-from fastapi import Depends, Response, Request
+from app.config import settings
+from app.database.repos.user_repo import UserRepo
+from app.models.token import Token
+from app.util.logging import get_logger
+from fastapi import Depends, Request, Response
 from fastapi.exceptions import HTTPException
 from fastapi.security import HTTPBearer
 from fastapi.security.http import HTTPAuthorizationCredentials
-from fastapi.security.utils import get_authorization_scheme_param
+from jose import ExpiredSignatureError, JWTError, jwt
 from passlib.context import CryptContext
 from starlette import status
-from jose import JWTError, ExpiredSignatureError, jwt
-
-from app.database.database import get_repo
-from app.database.repos.user_repo import UserRepo
-from app.models.token import Token
-from app.services.base_service import BaseService
-from app.config import settings
-import secrets
-
-from app.services.token import TokenService
-
-from app.util.logging import get_logger
 
 logger = get_logger(__name__)
 
-class AuthService(BaseService):
+class AuthService():
     pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
     auth_scheme = HTTPBearer()
 
@@ -40,7 +33,7 @@ class AuthService(BaseService):
 
     def __init__(
         self,
-        user_repo: UserRepo = Depends(get_repo(UserRepo))
+        user_repo: UserRepo = Depends()
     ) -> None:
         self.user_repo = user_repo
     
@@ -55,9 +48,10 @@ class AuthService(BaseService):
     @classmethod
     def parse_expired_token_from_header(
         cls,
-        request: Request,
         token: Optional[HTTPAuthorizationCredentials] = Depends(auth_scheme)
     ) -> Mapping:
+        if not token:
+            raise cls.invalid_token_exception
         try:
             payload = jwt.decode(
                 token.credentials, 
@@ -152,7 +146,6 @@ class AuthService(BaseService):
             raise invalid_refresh_token_exception
 
         username = token.get("sub")
-        print(token)
 
         if not username:
             raise self.invalid_token_exception
@@ -166,7 +159,9 @@ class AuthService(BaseService):
             raise invalid_refresh_token_exception
         
         if (datetime.utcnow() > refresh_token_for_user_expires_at):
-            raise invalid_refresh_token_exception
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Expired refresh token")
         
         access_token = self.create_token(
             data={"sub": username}, 
