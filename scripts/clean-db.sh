@@ -1,1 +1,0 @@
-PIPENV_DONT_LOAD_ENV=1 pipenv run alembic downgrade base
