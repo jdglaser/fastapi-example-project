@@ -1,0 +1,7 @@
+.secret/
+site/
+__pycache__/
+workspace.code-workspace
+pyrightconfig.json
+Pipfile.lock
+.vscode/

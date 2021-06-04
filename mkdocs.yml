@@ -1,0 +1,16 @@
+site_name: FastAPI Example Project
+theme:
+  name: material
+  palette:
+    primary: teal
+dev_addr: 127.0.0.1:8001
+
+nav:
+  - Intro: 'index.md'
+  - Database: 
+      - 'Database - Intro': 'database/intro.md'
+      - 'Migrations': 'database/migrations.md'
+      - 'Connections and AsyncIO': 'database/connections.md'
+      - 'DML': 'database/dml.md'
+  - Auth:
+      - 'Auth - Intro': 'auth/intro.md'
