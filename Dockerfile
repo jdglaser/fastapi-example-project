@@ -17,4 +17,4 @@ RUN pip install pipenv && \
 COPY . ./
 
 # CMD poetry run alembic upgrade head && \
-CMD pipenv run uvicorn --host=0.0.0.0 app.main:app
+CMD pipenv run uvicorn --host=0.0.0.0 src.main:app
