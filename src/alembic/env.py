@@ -40,10 +40,9 @@ def run_migrations_offline():
     script output.
 
     """
-    # url = config.get_main_option("sqlalchemy.url")
     context.configure(
         url=DATABASE_URL,
-        target_metadata=target_metadata,
+        target_metadata=METADATA,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
     )

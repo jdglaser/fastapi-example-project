@@ -1,3 +1,4 @@
+import os
 from databases import Database
 from src.config import settings
 from sqlalchemy import MetaData
@@ -8,7 +9,8 @@ from typing import Type, Callable
 
 logger = get_logger(__name__)
 
-DATABASE_URL: str = f"postgresql://{settings.db_username}:{settings.db_password}@{settings.db_host}:{settings.db_port}/{settings.db_name}"
+port = settings.db_port_test if os.environ.get("TESTING") else settings.db_port
+DATABASE_URL: str = f"postgresql://{settings.db_username}:{settings.db_password}@{settings.db_host}:{port}/{settings.db_name}"
 METADATA = MetaData()
 
 async def connect_to_db(app: FastAPI) -> None:

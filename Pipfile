@@ -19,6 +19,10 @@ python-multipart = "*"
 bcrypt = "*"
 fastapi-jwt-auth = "*"
 fastapi-utils = "*"
+pytest = "*"
+pytest-asyncio = "*"
+httpx = "*"
+asgi-lifespan = "*"
 
 [dev-packages]
 pytest = "*"
