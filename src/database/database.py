@@ -5,17 +5,21 @@ from sqlalchemy import MetaData
 from src.util.logging import get_logger
 from fastapi import FastAPI, Request, Depends
 from src.database.repos.base_repo import BaseRepo
-from typing import Type, Callable
+from typing import Tuple, Type, Callable
+from fastapi import Depends
 
 logger = get_logger(__name__)
 
-port = settings.db_port_test if os.environ.get("TESTING") else settings.db_port
-DATABASE_URL: str = f"postgresql://{settings.db_username}:{settings.db_password}@{settings.db_host}:{port}/{settings.db_name}"
 METADATA = MetaData()
+
+def get_database_url() -> str:
+    port = settings.db_port_test if os.environ.get("TESTING") else settings.db_port
+    database_url: str = f"postgresql://{settings.db_username}:{settings.db_password}@{settings.db_host}:{port}/{settings.db_name}"
+    return database_url
 
 async def connect_to_db(app: FastAPI) -> None:
     logger.info("Connecting to database")
-    database = Database(DATABASE_URL, 
+    database = Database(get_database_url(), 
                         min_size=settings.db_min_connection_pool_size, 
                         max_size=settings.db_max_connection_pool_size)
     try:
