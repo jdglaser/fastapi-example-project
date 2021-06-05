@@ -3,6 +3,7 @@ from src.database.repos.item_repo import ItemRepo
 from src.models.item import ItemTemplate
 from src.services.items import ItemsService
 import pytest
+import asyncio
 
 @pytest.fixture(scope="class", autouse=True)
 def get_item_service(request, db) -> ItemsService:
