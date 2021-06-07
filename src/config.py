@@ -1,6 +1,7 @@
 import logging
 
 from pydantic import BaseSettings
+from functools import lru_cache
 
 
 class Settings(BaseSettings):
@@ -30,4 +31,10 @@ class Settings(BaseSettings):
     access_token_expire_minutes: int = 1
     refresh_token_expire_minutes: int = 2
 
-settings = Settings(_env_file=None)
+@lru_cache
+def get_settings():
+    return Settings(_env_file=None)
+
+settings = get_settings()
+
+

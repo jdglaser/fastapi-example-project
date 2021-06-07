@@ -17,7 +17,7 @@ from fastapi.encoders import jsonable_encoder
 import alembic
 from alembic.config import Config
 import asyncio
-from src.config import Settings, get_settings
+from src.config import settings
 
 @pytest.fixture(scope="class")
 def event_loop():
@@ -36,16 +36,13 @@ def apply_migrations():
     alembic.command.upgrade(config, "head")
     yield
 
-@pytest.fixture(scope="class")
-def settings():
-    return get_settings()
-
 
 # Create a new application for testing
 @pytest.fixture(scope="class")
-async def app(apply_migrations: None, settings: Settings) -> AsyncGenerator[FastAPI, None]:
+async def app(apply_migrations: None) -> AsyncGenerator[FastAPI, None]:
     from src.main import get_application
 
+    # Keep access token from expiring during duration of tests
     settings.access_token_expire_minutes = 500
 
     app = get_application()
@@ -75,7 +72,7 @@ def test_user() -> UserTemplate:
 
 # Make requests in our tests
 @pytest.fixture(scope="class")
-async def client(app: FastAPI, test_user: UserTemplate, settings: Settings) -> AsyncGenerator[AsyncClient, None]:
+async def client(app: FastAPI, test_user: UserTemplate) -> AsyncGenerator[AsyncClient, None]:
     print("EXPIRES IN: ", settings.access_token_expire_minutes)
     async with AsyncClient(
         app=app,
