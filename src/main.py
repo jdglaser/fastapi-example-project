@@ -17,7 +17,7 @@ def get_application():
         allow_origins=settings.allowed_origins,
         allow_credentials=True,
         allow_methods=["*"],
-        allow_headers=["*"],
+        allow_headers=["Authorization"],
     )
 
     app.include_router(auth_router.router)

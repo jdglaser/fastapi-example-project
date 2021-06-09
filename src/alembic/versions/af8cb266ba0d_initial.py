@@ -46,7 +46,7 @@ def upgrade():
         """
         CREATE TRIGGER update_item_updated_at
             BEFORE UPDATE
-            ON item
+            ON "item"
             FOR EACH ROW
         EXECUTE PROCEDURE update_updated_at_column();
         """
@@ -74,7 +74,7 @@ def upgrade():
         """
         CREATE TRIGGER update_user_updated_at
             BEFORE UPDATE
-            ON item
+            ON "user"
             FOR EACH ROW
         EXECUTE PROCEDURE update_updated_at_column();
         """

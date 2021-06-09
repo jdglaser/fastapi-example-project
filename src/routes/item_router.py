@@ -7,7 +7,6 @@ from src.services.auth import AuthService
 router = APIRouter(
         prefix="/items",
         tags=["items"],
-        #dependencies=[Depends(verify_current_user)],
         responses={404: {"description": "Not found"}},
     )
 
@@ -29,3 +28,7 @@ class ItemRouter():
     async def update_item(self, name: str, 
                         item: ItemUpdate) -> Item:
         return await self.item_service.update_item(name, item)
+    
+    @router.delete("/{item_id}")
+    async def delete_item(self, item_id: int) -> None:
+        return await self.item_service.delete_item(item_id)

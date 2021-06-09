@@ -24,3 +24,6 @@ class ItemsService():
     async def update_item(self, name: str, item_update: ItemUpdate) -> Item:
         updated_item = await self.item_repo.update_item(name, item_update)
         return updated_item
+
+    async def delete_item(self, item_id: int) -> None:
+        await self.item_repo.delete_item(item_id)

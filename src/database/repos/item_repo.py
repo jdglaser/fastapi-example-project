@@ -51,5 +51,13 @@ class ItemRepo(BaseRepo):
                     detail=f"Item {name} does not exist"
                 )
             return Item(**res)
+        
+    async def delete_item(self, item_id: int) -> None:
+        async with self.db.transaction():
+            stmt = (
+                item_table.delete()
+                    .where(item_table.c.id == item_id)
+            )
+            await self.db.execute(query=stmt)
 
 
