@@ -4,3 +4,5 @@ __pycache__/
 workspace.code-workspace
 pyrightconfig.json
 .vscode/
+.mypy_cache/
+.pytest_cache/
