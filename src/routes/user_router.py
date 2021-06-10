@@ -6,6 +6,7 @@ from src.util.logging import get_logger
 from fastapi import APIRouter, status
 from src.util.cbv import cbv
 from src.services.auth import AuthService
+import asyncio
 
 
 logger = get_logger(__name__)

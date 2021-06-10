@@ -156,8 +156,24 @@ class AuthService():
                             samesite="none",
                             secure=True,
                             path="/auth/refresh")
+        response.set_cookie("refresh_token", 
+                    refresh_token, 
+                    httponly=True,
+                    samesite="none",
+                    secure=True,
+                    path="/auth/logout")
         return Token(access_token=access_token, token_type="bearer")
 
+    async def logout(self, request: Request, response: Response) -> None:
+        refresh_token: Optional[str] = request.cookies.get("refresh_token")
+        if not refresh_token:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid refresh token")
+
+        response.delete_cookie("refresh_token")
+        
+        await self.user_repo.invalidate_user_refresh_token(refresh_token)
     
     async def refresh_access_token(
         self,
@@ -167,7 +183,6 @@ class AuthService():
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Invalid refresh token")
         refresh_token: Optional[str] = request.cookies.get("refresh_token")
-        logger.info(refresh_token)
         if not refresh_token:
             raise invalid_refresh_token_exception
 

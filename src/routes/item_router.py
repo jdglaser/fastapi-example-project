@@ -3,6 +3,7 @@ from src.models.item import Item, ItemTemplate, ItemUpdate
 from fastapi import APIRouter, Depends
 from src.services.items import ItemsService
 from src.services.auth import AuthService
+import asyncio
 
 router = APIRouter(
         prefix="/items",

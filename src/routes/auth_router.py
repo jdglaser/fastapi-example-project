@@ -35,13 +35,16 @@ class AuthRouter:
     ) -> Token:
         return await self.auth_service.login(response, username, password)
 
+    @router.post("/logout")
+    async def logout(self, request: Request, response: Response) -> None:
+        return await self.auth_service.logout(request, response)
+
 
     @router.post("/refresh", response_model=Token)
     async def refresh_access_token(
         self,
         request: Request
     ) -> Token:
-        logger.info("refreshing")
         return await self.auth_service.refresh_access_token(request)
 
     @router.post("/")

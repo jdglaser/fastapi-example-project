@@ -79,4 +79,19 @@ class UserRepo(BaseRepo):
                     status_code=status.HTTP_404_NOT_FOUND,
                     detail=f"User {username} not found"
                 )
+    
+    async def invalidate_user_refresh_token(self, refresh_token: str) -> None:
+        async with self.db.transaction():
+            stmt = (
+                user_table.update()
+                    .where(user_table.c.refresh_token == refresh_token)
+                    .values(refresh_token="")
+                    .returning(user_table.c.id)
+            )
+            res = await self.db.fetch_one(query=stmt)
+            if not res:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail=f"Failed to update refresh token"
+                )
             
