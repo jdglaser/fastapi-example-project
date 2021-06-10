@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from src.config import settings
-from src.routes import auth_router, item_router
+from src.routes import auth_router, item_router, user_router
 from src.util.logging import get_logger
 from src.database.database import connect_to_db, close_db_connection
 
@@ -22,6 +22,7 @@ def get_application():
 
     app.include_router(auth_router.router)
     app.include_router(item_router.router)
+    app.include_router(user_router.router)
     
     @app.on_event("startup")
     async def startup():

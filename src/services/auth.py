@@ -94,6 +94,7 @@ class AuthService():
             raise cls.invalid_token_exception
         payload = cls.verify_token(token.credentials)
         username: Optional[str] = payload.get("sub")
+        logger.info(f"USERNAME: {username}")
         if not username:
             raise AuthService.invalid_token_exception
         return username
