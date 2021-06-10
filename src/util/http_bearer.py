@@ -1,11 +1,13 @@
 from typing import Optional
+
+from fastapi import status
 from fastapi.exceptions import HTTPException
 from fastapi.openapi.models import HTTPBearer as HTTPBearerModel
-from fastapi.security.http import HTTPBase, HTTPAuthorizationCredentials
-from starlette.requests import Request
-from fastapi import status
-from starlette.status import HTTP_401_UNAUTHORIZED
+from fastapi.security.http import HTTPAuthorizationCredentials, HTTPBase
 from fastapi.security.utils import get_authorization_scheme_param
+from starlette.requests import Request
+from starlette.status import HTTP_401_UNAUTHORIZED
+
 
 class HTTPBearer(HTTPBase):
     def __init__(

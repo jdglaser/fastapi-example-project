@@ -1,11 +1,12 @@
 from datetime import date
 
-from starlette.status import HTTP_200_OK
-from src.models.user import UserTemplate
 import pytest
-from httpx import AsyncClient
-from fastapi.encoders import jsonable_encoder
 from fastapi import status
+from fastapi.encoders import jsonable_encoder
+from httpx import AsyncClient
+from src.models.user_models import UserTemplate
+from starlette.status import HTTP_200_OK
+
 
 @pytest.fixture(scope="function")
 def setup(request, client: AsyncClient):

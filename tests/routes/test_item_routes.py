@@ -1,9 +1,9 @@
-import asyncio
-from src.util.logging import get_logger
-from src.models.item import ItemTemplate
 import pytest
+from fastapi import status
 from httpx import AsyncClient
-from fastapi import FastAPI, status
+from src.models.item_models import ItemTemplate
+from src.util.logging import get_logger
+
 
 @pytest.fixture(scope="class")
 def setup(request, client: AsyncClient):

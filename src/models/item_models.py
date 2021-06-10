@@ -1,5 +1,6 @@
 from src.models.main_model import MainModel
 
+
 class Item(MainModel):
     id: int
     name: str

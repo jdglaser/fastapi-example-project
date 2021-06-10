@@ -1,6 +1,7 @@
 from humps import camelize
 from pydantic import BaseModel
 
+
 class MainModel(BaseModel):
     class Config:
         alias_generator = camelize

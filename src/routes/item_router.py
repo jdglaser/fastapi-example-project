@@ -1,9 +1,8 @@
-from src.util.cbv import cbv
-from src.models.item import Item, ItemTemplate, ItemUpdate
 from fastapi import APIRouter, Depends
-from src.services.items import ItemsService
-from src.services.auth import AuthService
-import asyncio
+from src.models.item_models import Item, ItemTemplate, ItemUpdate
+from src.services.auth_service import AuthService
+from src.services.item_service import ItemService
+from src.util.cbv import cbv
 
 router = APIRouter(
         prefix="/items",
@@ -14,7 +13,7 @@ router = APIRouter(
 @cbv(router)
 class ItemRouter():
     username: str = Depends(AuthService.verify_current_user)
-    item_service: ItemsService = Depends()
+    item_service: ItemService = Depends()
 
     @router.get("/", response_model=list[Item])
     async def get_items(self) -> list[Item]:

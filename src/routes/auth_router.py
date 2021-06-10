@@ -1,19 +1,9 @@
-import secrets
-from datetime import datetime, timedelta
-from typing import Mapping, Optional
-
-from src.config import settings
-from src.database.repos.user_repo import UserRepo
-from src.models.token import Token
-from src.models.user import AuthUserTemplate, User, UserTemplate
-from src.util.logging import get_logger
-from fastapi import (APIRouter, Depends, HTTPException, Request,
-                     Response, responses, status)
-from fastapi.security import HTTPBearer
-from src.models.token import Token
-from src.services.auth import AuthService
+from fastapi import APIRouter, Depends, Request, Response
+from src.models.token_models import Token
+from src.models.user_models import User, UserTemplate
+from src.services.auth_service import AuthService
 from src.util.cbv import cbv
-from fastapi_utils.inferring_router import InferringRouter
+from src.util.logging import get_logger
 
 logger = get_logger(__name__)
 router = APIRouter(

@@ -1,12 +1,10 @@
 import os
+
 from databases import Database
-from src.config import settings
+from fastapi import FastAPI
 from sqlalchemy import MetaData
+from src.config import settings
 from src.util.logging import get_logger
-from fastapi import FastAPI, Request, Depends
-from src.database.repos.base_repo import BaseRepo
-from typing import Tuple, Type, Callable
-from fastapi import Depends
 
 logger = get_logger(__name__)
 

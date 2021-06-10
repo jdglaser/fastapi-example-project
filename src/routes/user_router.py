@@ -1,13 +1,11 @@
-from src.models.user import User
-from fastapi.exceptions import HTTPException
-from src.database.repos.user_repo import UserRepo
-from fastapi.param_functions import Depends
-from src.util.logging import get_logger
 from fastapi import APIRouter, status
+from fastapi.exceptions import HTTPException
+from fastapi.param_functions import Depends
+from src.database.repos.user_repo import UserRepo
+from src.models.user_models import User
+from src.services.auth_service import AuthService
 from src.util.cbv import cbv
-from src.services.auth import AuthService
-import asyncio
-
+from src.util.logging import get_logger
 
 logger = get_logger(__name__)
 router = APIRouter(

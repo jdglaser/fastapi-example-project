@@ -2,11 +2,11 @@ from src.util.logging import get_logger
 from src.database.repos.item_repo import ItemRepo
 from fastapi import Depends
 from src.util.logging import get_logger
-from src.models.item import ItemTemplate, Item, ItemUpdate
+from src.models.item_models import ItemTemplate, Item, ItemUpdate
 
 logger = get_logger(__name__)
 
-class ItemsService():
+class ItemService():
     def __init__(
         self,
         item_repo: ItemRepo = Depends()

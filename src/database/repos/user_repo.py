@@ -1,13 +1,12 @@
 from datetime import datetime
 from typing import Optional, Tuple
 
-from src.database.tables.user import user_table
-from src.models.user import AuthUser, AuthUserTemplate, User
-from src.util.helpers import remove_from_dict
-from src.util.logging import get_logger
-from asyncpg.exceptions import UniqueViolationError
 from fastapi import HTTPException, status
 from src.database.repos.base_repo import BaseRepo
+from src.database.tables.user_tables import user_table
+from src.models.user_models import AuthUser, AuthUserTemplate, User
+from src.util.helpers import remove_from_dict
+from src.util.logging import get_logger
 
 logger = get_logger(__name__)
 

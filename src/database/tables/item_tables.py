@@ -1,7 +1,7 @@
-from src.database.database import METADATA
-from src.database.tables.common_columns import get_common_columns
 from sqlalchemy import Boolean, Column, Integer, String, Table
 from sqlalchemy.sql import text
+from src.database.database import METADATA
+from src.database.tables.common_columns import get_common_columns
 
 item_table = Table(
     "item",

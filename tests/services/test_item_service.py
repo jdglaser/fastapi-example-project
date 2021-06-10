@@ -1,18 +1,17 @@
-from os import name
-from src.database.repos.item_repo import ItemRepo
-from src.models.item import ItemTemplate
-from src.services.items import ItemsService
 import pytest
-import asyncio
+from src.database.repos.item_repo import ItemRepo
+from src.models.item_models import ItemTemplate
+from src.services.item_service import ItemService
+
 
 @pytest.fixture(scope="class", autouse=True)
-def get_item_service(request, db) -> ItemsService:
+def get_item_service(request, db) -> ItemService:
     item_repo = ItemRepo(db)
-    request.cls.item_service = ItemsService(item_repo)
+    request.cls.item_service = ItemService(item_repo)
 
 @pytest.mark.usefixtures("get_item_service")
 class TestItemService:
-    item_service: ItemsService
+    item_service: ItemService
 
     foo_item = ItemTemplate(name="foo", description="bar")
     @pytest.mark.asyncio

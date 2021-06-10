@@ -1,7 +1,7 @@
-from src.database.database import METADATA
-from src.database.tables.common_columns import get_common_columns
 from sqlalchemy import Boolean, Column, Date, DateTime, Integer, String, Table
 from sqlalchemy.sql import text
+from src.database.database import METADATA
+from src.database.tables.common_columns import get_common_columns
 
 user_table = Table(
     "user",

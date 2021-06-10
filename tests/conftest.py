@@ -1,23 +1,20 @@
-from datetime import date, datetime
-
-import json
-from src.database.database import close_db_connection, connect_to_db
-from src.models.user import AuthUserTemplate, User, UserTemplate
-import warnings
-import os
-
-import pytest
-from asgi_lifespan import LifespanManager
-from typing import AsyncGenerator, Generator
-
-from fastapi import FastAPI
-from httpx import AsyncClient
-from databases import Database
-from fastapi.encoders import jsonable_encoder
-import alembic
-from alembic.config import Config
 import asyncio
+import os
+import warnings
+from datetime import date
+from typing import AsyncGenerator
+
+import alembic
+import pytest
+from alembic.config import Config
+from databases import Database
+from fastapi import FastAPI
+from fastapi.encoders import jsonable_encoder
+from httpx import AsyncClient
 from src.config import settings
+from src.database.database import close_db_connection, connect_to_db
+from src.models.user_models import AuthUserTemplate, User, UserTemplate
+
 
 @pytest.fixture(scope="class")
 def event_loop():

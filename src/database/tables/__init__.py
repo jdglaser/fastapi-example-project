@@ -1,4 +1,4 @@
 __all__ = [
-    "item",
-    "user"
+    "item_tables",
+    "user_tables"
 ]

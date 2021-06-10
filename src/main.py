@@ -2,9 +2,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from src.config import settings
+from src.database.database import close_db_connection, connect_to_db
 from src.routes import auth_router, item_router, user_router
 from src.util.logging import get_logger
-from src.database.database import connect_to_db, close_db_connection
 
 logger = get_logger(__name__)
 

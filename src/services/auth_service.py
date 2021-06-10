@@ -1,12 +1,12 @@
 import secrets
 from datetime import datetime, timedelta
-from src.models.user import AuthUserTemplate, UserTemplate
+from src.models.user_models import AuthUserTemplate, UserTemplate
 from src.util.logging import get_logger
 from typing import Mapping, Optional
 
 from src.config import settings
 from src.database.repos.user_repo import UserRepo
-from src.models.token import Token
+from src.models.token_models import Token
 from fastapi import Depends, Request, Response
 from fastapi.exceptions import HTTPException
 from src.util.http_bearer import HTTPBearer
