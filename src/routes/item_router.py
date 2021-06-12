@@ -12,7 +12,7 @@ router = APIRouter(
 
 @cbv(router)
 class ItemRouter():
-    username: str = Depends(AuthService.verify_current_user)
+    #username: str = Depends(AuthService.verify_current_user)
     item_service: ItemService = Depends()
 
     @router.get("/", response_model=list[Item])
@@ -30,5 +30,5 @@ class ItemRouter():
         return await self.item_service.update_item(name, item)
     
     @router.delete("/{item_id}")
-    async def delete_item(self, item_id: int) -> None:
+    async def delete_item(self, item_id: int) -> Item:
         return await self.item_service.delete_item(item_id)

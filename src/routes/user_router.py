@@ -21,7 +21,7 @@ class AuthRouter:
     user_repo: UserRepo = Depends()
 
     @router.get("/me")
-    async def get_me(self) -> User:
+    async def get_current_user(self) -> User:
       user = await self.user_repo.find_user(self.username)
       if not user:
         raise HTTPException(

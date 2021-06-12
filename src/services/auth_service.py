@@ -1,6 +1,6 @@
 import secrets
 from datetime import datetime, timedelta
-from src.models.user_models import AuthUserTemplate, UserTemplate
+from src.models.user_models import AuthUserTemplate, User, UserTemplate
 from src.util.logging import get_logger
 from typing import Mapping, Optional
 
@@ -94,10 +94,26 @@ class AuthService():
             raise cls.invalid_token_exception
         payload = cls.verify_token(token.credentials)
         username: Optional[str] = payload.get("sub")
-        logger.info(f"USERNAME: {username}")
         if not username:
             raise AuthService.invalid_token_exception
         return username
+
+    @classmethod
+    async def get_current_user(
+        cls,
+        token: Optional[HTTPAuthorizationCredentials] = Depends(auth_scheme),
+        user_repo: UserRepo = Depends()
+    ) -> User:
+        if not token:
+            raise cls.invalid_token_exception
+        payload = cls.verify_token(token.credentials)
+        username: Optional[str] = payload.get("sub")
+        if not username:
+            raise AuthService.invalid_token_exception
+        user = await user_repo.find_user(username)
+        if not user:
+            raise AuthService.invalid_token_exception
+        return user
     
     async def verify_password(self, plain_password, hashed_password) -> bool:
         return self.pwd_context.verify(plain_password, hashed_password)
