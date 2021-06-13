@@ -12,7 +12,6 @@ router = APIRouter(
 
 @cbv(router)
 class ItemRouter():
-    #username: str = Depends(AuthService.verify_current_user)
     item_service: ItemService = Depends()
 
     @router.get("/", response_model=list[Item])

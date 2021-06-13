@@ -5,9 +5,9 @@ from src.services.item_service import ItemService
 
 
 @pytest.fixture(scope="class", autouse=True)
-def get_item_service(request, db) -> ItemService:
+def get_item_service(request, db, john_doe) -> ItemService:
     item_repo = ItemRepo(db)
-    request.cls.item_service = ItemService(item_repo)
+    request.cls.item_service = ItemService(item_repo, john_doe)
 
 @pytest.mark.usefixtures("get_item_service")
 class TestItemService:

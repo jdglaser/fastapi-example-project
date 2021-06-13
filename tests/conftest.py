@@ -82,3 +82,8 @@ async def client(app: FastAPI, test_user: UserTemplate) -> AsyncGenerator[AsyncC
         token_type = res.json()["tokenType"]
         client.headers["Authorization"] = f"{token_type} {token}"
         yield client
+
+@pytest.fixture(scope="class")
+async def john_doe(client) -> User:
+    res = await client.get("/user/me")
+    return User(**res.json())
