@@ -24,7 +24,7 @@ class Settings(BaseSettings):
     db_min_connection_pool_size: int = 5
     db_max_connection_pool_size: int = 20
     # Test Database
-    db_port_test: int = 5433
+    db_port_test: int = 5434
     # Auth
     hashing_algorithm: str = "HS256"
     secret_key: str = "super_secret_key"

@@ -6,14 +6,14 @@ services:
     ports: 
         - "5432:5432"
     environment:
-        - POSTGRES_DB=${DB_NAME}
-        - POSTGRES_USER=${DB_USERNAME}
-        - POSTGRES_PASSWORD=${DB_PASSWORD}
+        - POSTGRES_DB=operational
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
   unit-db:
     image: postgres
     ports: 
-        - "5433:5432"
+        - "5434:5432"
     environment:
-        - POSTGRES_DB=${DB_NAME}
-        - POSTGRES_USER=${DB_USERNAME}
-        - POSTGRES_PASSWORD=${DB_PASSWORD}
+        - POSTGRES_DB=operational
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
